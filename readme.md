@@ -47,3 +47,14 @@ You can also do integration with javascript here .
 - `https://api.tonshive.xyz/pools.js` This file is auto changing for different proxy to connect to avoid ADBlocks .
 
 - `tonshive.min.js` This file is the main hive process .
+
+## Some demos . 
+
+Here are some demos to show how Tonshive process works in your backend .
+
+- Benchmark : This page including the chart & hash rate / threads usage . To help hoster calcuate the addition profite for average hash rate . 
+    - [Benchmark Link](https://tonspay.github.io/Tonshive-sdk/chart.html)
+    - [Benchmark Webapp](https://t.me/share/url?url=https://t.me/tonshive_bot/benchmark)
+
+- DemoTiktok : This demo shows how this program works in your miniapp/minigame .
+    - [DemoTiktok_Webapp](https://t.me/share/url?url=https://t.me/tonshive_bot/demotiktok)
